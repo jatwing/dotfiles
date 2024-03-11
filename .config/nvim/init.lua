@@ -43,9 +43,45 @@ require("mason-lspconfig").setup {
         "html",
         "tsserver",
         "sqlls",
-        "vuels"
+        "volar"
     },
 }
+
+
+require('lspconfig').tsserver.setup{
+  init_options = {
+    plugins = {
+      {
+        name = "@vue/typescript-plugin",
+        location = "~/.nvm/versions/node/v20.11.1/lib/node_modules/@vue/typescript-plugin",
+        languages = {"javascript", "typescript", "vue"},
+      },
+    },
+  },
+  filetypes = {
+    "javascript",
+    "typescript",
+    "vue",
+  },
+}
+
+
+require('lspconfig').volar.setup{
+  init_options = {
+    typescript = {
+      tsdk = "~/.nvm/versions/node/v20.11.1/lib/node_modules/typescript/lib"
+      -- Alternative location if installed as root:
+      -- tsdk = '/usr/local/lib/node_modules/typescript/lib'
+    }
+  },
+    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'},
+}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', '<C-h>', vim.lsp.buf.hover, { buffer = args.buf })
+  end,
+})
 
 --require("nvim-tree").setup({
 --    on_attach = my_on_attach,
