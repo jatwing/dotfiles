@@ -1,4 +1,6 @@
 alias dot="git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+alias vi="nvim"
+alias vim="nvim"
 
 PS1="[%~] "
 
